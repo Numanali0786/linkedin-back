@@ -4,7 +4,7 @@ export const getProfile= async(req,res)=>{
 
     
     try {
-        console.log('hh')
+        // console.log('hh')
         const profile = await UserProfile.find({})
        
         res.status(200).json(profile)

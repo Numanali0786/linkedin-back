@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import postRouter from './routes/postRoutes.js';
 import cors from 'cors';
 import commentRouter from './routes/commentRoute.js';
-import profileRouter from './routes/ProfileRoute.js';
+import profileRouter from './routes/profileRoute.js';
 import dotenv from 'dotenv';
 dotenv.config();
 const app = express()

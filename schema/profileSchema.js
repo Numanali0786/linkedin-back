@@ -12,7 +12,10 @@ const ProfileSchema = new mongoose.Schema({
     createdAt:{ type: Date, required: true, default: Date.now },
     profileViews: Number,
     postImpression:Number,
-    authorEmail:String
+    authorEmail:{
+        type:String,
+        required:true
+    }
 
 })
 
