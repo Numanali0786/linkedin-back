@@ -12,9 +12,9 @@ const ProfileSchema = new mongoose.Schema({
     createdAt:{ type: Date, required: true, default: Date.now },
     profileViews: Number,
     postImpression:Number,
-    authorEmail:{
+    authorSub:{
         type:String,
-        required:true
+        required:true,
     }
 
 })

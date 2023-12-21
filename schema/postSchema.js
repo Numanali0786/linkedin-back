@@ -18,7 +18,7 @@ const PostSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },  
-    authorEmail:{
+    authorSub:{
         type:String,  
         required:true
     }

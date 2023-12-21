@@ -1,6 +1,6 @@
 import UserProfile from "../schema/profileSchema.js"
 
-export const getProfile= async(req,res)=>{
+export const getProfiles= async(req,res)=>{
 
     
     try {
@@ -13,13 +13,27 @@ export const getProfile= async(req,res)=>{
         res.status(400).json({'message':error.message})
     }
 }
+
+export const getProfile= async(req,res)=>{
+    const {authorSub} = req.params
+    // console.log(authorSub)
+
+    try {
+        // console.log('hh')
+        const profile = await UserProfile.findOne({authorSub})
+    //console.log(profile)
+        res.status(200).json(profile)
+        
+    } catch (error) {
+        res.status(400).json({'message':error.message})
+    }
+}
 export const deleteProfile= async(req,res)=>{
-    const {id} = req.params
+    const {authorSub} = req.params
     
     try {
         console.log('hh')
-        const profile = await UserProfile.findOneAndDelete({_id:id})
-       
+        const profile = await UserProfile.findOneAndDelete({authorSub})
         res.status(200).json(profile)
         
     } catch (error) {
@@ -29,6 +43,7 @@ export const deleteProfile= async(req,res)=>{
 
 export const createProfile= async(req,res)=>{
     const newPost = req.body
+    console.log(newPost)
     
     
     try {
@@ -43,12 +58,12 @@ export const createProfile= async(req,res)=>{
 export const updateProfile= async(req,res)=>{
     console.log('update')
     const newProfile = req.body
-    const {id} = req.params
-    console.log(newProfile)
+    const {authorSub} = req.params
+    console.log(newProfile,authorSub)
     
     
     try {
-        const profile = await UserProfile.findOneAndUpdate({_id:id},newProfile,{new:true})
+        const profile = await UserProfile.findOneAndUpdate({authorSub},newProfile,{new:true})
         // console.log(profile)
         res.status(200).json(profile)
         

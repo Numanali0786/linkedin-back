@@ -1,11 +1,12 @@
 import express from 'express';
-import { getProfile,createProfile, updateProfile,deleteProfile } from '../controllers/profileController.js';
+import { getProfiles,getProfile,createProfile, updateProfile,deleteProfile } from '../controllers/profileController.js';
 
 const profileRouter = express.Router()
 
-profileRouter.get('/',getProfile)
+profileRouter.get('/',getProfiles)
+profileRouter.get('/:authorSub',getProfile)
 profileRouter.post('/',createProfile)
-profileRouter.patch('/:id',updateProfile)
+profileRouter.patch('/:authorSub',updateProfile)
 profileRouter.delete('/:id',deleteProfile)
 
 
