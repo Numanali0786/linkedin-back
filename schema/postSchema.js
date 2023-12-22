@@ -11,6 +11,7 @@ const PostSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    position: String,
     postText: String,
     selectedFile: String, 
     createdAt:{ type: Date, required: true, default: Date.now },
