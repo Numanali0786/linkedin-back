@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import express from 'express'
 
 const PostSchema = new mongoose.Schema({
 
@@ -28,3 +29,4 @@ const PostSchema = new mongoose.Schema({
 
 const UserPost = mongoose.model('UserPost', PostSchema)
 export default UserPost
+
