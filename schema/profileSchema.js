@@ -5,7 +5,7 @@ const ProfileSchema = new mongoose.Schema({
 
     name:{
         type:String,
-        required:true
+        
     },
     selectedFile: String, 
     position: String,
@@ -14,7 +14,7 @@ const ProfileSchema = new mongoose.Schema({
     postImpression:Number,
     authorSub:{
         type:String,
-        required:true,
+        
     }
 
 })

@@ -3,31 +3,23 @@ import mongoose from "mongoose";
 const CommentSchema = new mongoose.Schema({
 
 
-    author: {
-        type: String,
-        required: true
-    },
-    profile:{
-        type: String,
-        required: true
-    }
-    ,
-
+   
     commentText: String,
     createdAt: { type: Date, required: true, default: Date.now },
     likeCount: {
         type: Number,
         default: 0
     },
-    authorSub: {
-        type: String,
-        required: true
-
+  
+    authorPost:{
+        type:mongoose.Schema.Types.ObjectId, 
+        ref:'UserPost',
+        
     },
-    postId: {
-        type: String,
-        required: true
-
+    author:{
+        type:mongoose.Schema.Types.ObjectId, 
+        ref:'UserProfile',
+        
     }
 
 })

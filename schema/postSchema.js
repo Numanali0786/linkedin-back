@@ -1,18 +1,10 @@
 import mongoose from "mongoose";
-import express from 'express'
+
 
 const PostSchema = new mongoose.Schema({
 
 
-    author:{
-        type:String,
-        required:true
-    },
-    profile:{
-        type:String,
-        required:true
-    },
-    position: String,
+
     postText: String,
     selectedFile: String, 
     createdAt:{ type: Date, required: true, default: Date.now },
@@ -20,9 +12,10 @@ const PostSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },  
-    authorSub:{
-        type:String,  
-        required:true
+    author:{
+        type:mongoose.Schema.Types.ObjectId, 
+        ref:'UserProfile',
+        
     }
 
 })

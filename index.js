@@ -9,8 +9,8 @@ dotenv.config();
 const app = express()
 app.use(cors())
 app.use(express.json({ limit: '2MB' }))
-app.use('/api/posts',postRouter)
 app.use('/api/comments',commentRouter)
+app.use('/api/posts',postRouter)
 app.use('/api/profile',profileRouter)
 
 
