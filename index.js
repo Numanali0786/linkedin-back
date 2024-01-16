@@ -26,6 +26,7 @@ app.use('/api/profile', profileRouter)
 const io = new Server(server, {
     cors: {
         origin: 'http://localhost:5173',
+        origin: 'https://linkedin-clone-786p.onrender.com',
         methods: ["GET", "POST"]
     }
 });
