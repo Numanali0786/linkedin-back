@@ -9,7 +9,7 @@ export const getPosts = async (req, res) => {
 
         const posts = await UserPost.find({}).populate('author')
 
-        console.log(posts)
+        // console.log(posts)
         res.status(200).json(posts.reverse())
 
     } catch (error) {

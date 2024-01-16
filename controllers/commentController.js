@@ -15,7 +15,7 @@ export const getComments= async(req,res)=>{
 
 export const createComments= async(req,res)=>{
     const newPost = req.body
-    console.log(newPost)
+    // console.log(newPost)
 
     
     try {
