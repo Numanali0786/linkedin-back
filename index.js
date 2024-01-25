@@ -26,7 +26,8 @@ app.use('/api/profile', profileRouter)
 const io = new Server(server, {
     cors: {
         origin: 'http://localhost:5173',
-        origin: 'https://linkedin-clone-786p.onrender.com',
+
+        // origin: 'https://linkedin-clone-786p.onrender.com',
         methods: ["GET", "POST"]
     }
 });
@@ -44,17 +45,18 @@ io.on('disconnect', () => {
 
 
 io.on('connection', async (socket) => {
+    console.log('con')
     const user_id = socket.handshake.query["user_id"]
-    console.log(user_id, 'connected')
 
     const socket_id = socket.id
+    console.log(socket_id)
     if (Boolean(user_id)) {
         await UserProfile.findByIdAndUpdate(user_id, { socket_id, status: "Online" })
     }
 
     // if connected user sends a friend request
     socket.on('friend_request', async (data) => {
-        console.log('fr',data)
+        // console.log('fr',data)
         // data.from==> current user user_id who will send fr...req
 
         // data.to==> to whome current user user_id will send fr...req
@@ -141,7 +143,7 @@ io.on('connection', async (socket) => {
 
 
     socket.on('start_conversation', async (data) => {
-        console.log("start", data)
+        // console.log("start", data)
         const { to, from } = data
         // if existing convers bw hese users
         const existing_conversations = await OneToOneMessage.find({
@@ -149,7 +151,7 @@ io.on('connection', async (socket) => {
                 $size: 2, $all: [to, from]
             }
         }).populate('participants', 'name _id status')
-        console.log(existing_conversations[0])
+        // console.log(existing_conversations[0])
 
         // if no existing conversation 
         if (existing_conversations.length === 0) {
@@ -159,13 +161,13 @@ io.on('connection', async (socket) => {
 
             // hahahha
             new_chat = await OneToOneMessage.findById(new_chat._id).populate('participants', 'name _id status')
-            console.log("new conv", new_chat)
+            // console.log("new conv", new_chat)
 
             socket.emit("start_chat", new_chat)
         }
         else {
             // if existing convers
-            console.log("old conv")
+            // console.log("old conv")
             socket.emit("start_chat", existing_conversations[0])
         }
 
@@ -181,42 +183,44 @@ io.on('connection', async (socket) => {
     // handle text and link message
     socket.on("text_message", async (data) => {
         // console.log("recieved msg",data)
-        console.log('hii')
-
+        
         // data:{to,from,text,conversation_id,type}
         const { to, from, message, conversation_id, type } = data
         const to_user = await UserProfile.findById(to)
         const from_user = await UserProfile.findById(from)
-
+        
         const new_message = {
             to, from, type,
             text: message,
-            created_at: Date.now()
+            created_at:new Date()
         }
 
         // create a new conversation if it doesnt exist yet or add new msg to list
         const chat = await OneToOneMessage.findById(conversation_id)
         chat.messages.push(new_message)
+        console.log(from_user.socket_id)
+        console.log(to_user.socket_id)
         // save to db
         const a = await chat.save({ new: true, validateModifiedOnly: true })
-        // console.log('a',a)
-
-
+        
+        
+        
         // emit new_message  => to user
-        io.to(to_user?.socket_id).emit('new_message',
+        io.to(to_user.socket_id).emit('new_message',
             {
                 conversation_id,
                 message: new_message
             }
         )
-
+        
         // emit new_message to sender
-        io.to(from_user?.socket_id).emit('new_message',
+        io.to(from_user.socket_id).emit('new_message',
             {
                 conversation_id,
                 message: new_message
             }
-        )
+            )
+            console.log('a')
 
     })
 
