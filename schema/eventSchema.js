@@ -8,6 +8,9 @@ const EventSchema = new mongoose.Schema({
     name: String,
     description:String,
     selectedFile: String, 
+    type: String, 
+    start: String, 
+    end: String, 
     createdAt:{ type: Date, required: true, default: Date.now },
     likeCount: {
         type: Number,

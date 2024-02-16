@@ -29,3 +29,15 @@ export const createPosts = async (req, res) => {
         res.status(400).json({ 'message': error.message })
     }
 }
+export const deletePost = async (req, res) => {
+    const {id} = req.params
+console.log(id)
+
+    try {
+        const post = await UserPost.findByIdAndDelete(id)
+        res.status(200).json(post)
+
+    } catch (error) {
+        res.status(400).json({ 'message': error.message })
+    }
+}
